@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Age Calculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+      text-align: center;
+    }
+    .container {
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      padding: 20px;
+      width: 300px;
+      margin: 20px auto;
+    }
+    h1 {
+      color: #333;
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    button {
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      padding: 10px 20px;
+      cursor: pointer;
+    }
+    #result {
+      margin: 20px 0;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Age Calculator</h1>
+    <input type="date" id="birthdate">
+    <button id="calculate">Calculate Age</button>
+    <p id="result"></p>
+  </div>
+
+  <script>
+    document.getElementById("calculate").addEventListener("click", function() {
+      const birthdate = new Date(document.getElementById("birthdate").value);
+      const today = new Date();
+
+      if (birthdate > today) {
+        document.getElementById("result").textContent = "Please enter a valid birthdate.";
+      } else {
+        const ageInMilliseconds = today - birthdate;
+        const ageInYears = Math.floor(ageInMilliseconds / (365.25 * 24 * 60 * 60 * 1000));
+        const ageInMonths = Math.floor(ageInYears * 12);
+        const ageInDays = Math.floor(ageInMilliseconds / (24 * 60 * 60 * 1000));
+
+        const remainingMonths = ageInMonths % 12;
+        const remainingDays = ageInDays - (ageInYears * 365) - (remainingMonths * 30);
+
+        const resultText = `You are ${ageInYears} years, ${remainingMonths} months, and ${remainingDays} days old.`;
+
+        document.getElementById("result").textContent = resultText;
+      }
+    });
+  </script>
+</body>
+</html>
